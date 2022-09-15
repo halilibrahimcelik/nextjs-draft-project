@@ -1,4 +1,5 @@
 import React from "react";
+
 import MeetupList from "../components/meetups/MeetupList";
 
 const DUMMY_MEETUPS = [
@@ -19,7 +20,7 @@ const DUMMY_MEETUPS = [
     description: "this is our second meetup",
   },
   {
-    id: "m1",
+    id: "m3",
     title: "Third Meetup",
     image:
       "https://upload.wikimedia.org/wikipedia/commons/7/73/Aberdeen-Harbour-Skyline.jpg",
