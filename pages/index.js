@@ -28,12 +28,34 @@ const DUMMY_MEETUPS = [
     description: "this is our third meetup",
   },
 ];
-const Homepage = () => {
+const Homepage = (props) => {
   return (
     <section>
-      <MeetupList meetups={DUMMY_MEETUPS} />
+      <MeetupList meetups={props.meetups} />
     </section>
   );
 };
+export async function getStaticProps() {
+  //runs only in building phase
+  //fetch data from an API
 
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS,
+    },
+    revalidate: 10,
+  };
+}
+
+// export async function getServerSideProps(context) {
+//   //fetch data from an API
+
+//   const req = context.req;
+//   const res = context.res;
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//   };
+// }
 export default Homepage;
