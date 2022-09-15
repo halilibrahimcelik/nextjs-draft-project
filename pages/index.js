@@ -1,5 +1,5 @@
 import React from "react";
-
+import { MongoClient } from "mongodb";
 import MeetupList from "../components/meetups/MeetupList";
 
 const DUMMY_MEETUPS = [
@@ -38,10 +38,23 @@ const Homepage = (props) => {
 export async function getStaticProps() {
   //runs only in building phase
   //fetch data from an API
+  const client = await MongoClient.connect(
+    "mongodb+srv://halocan:ZLKRHlgF2z3aY2gl@myfirstclustor.ts2f5.mongodb.net/meetups?retryWrites=true&w=majority"
+  );
+  const db = client.db();
 
+  const meetupsCollection = db.collection("meetups");
+  const meetups = await meetupsCollection.find().toArray();
+  client.close();
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups: meetups.map((meetup) => ({
+        title: meetup.title,
+        address: meetup.address,
+        description: meetup.description,
+        image: meetup.image,
+        id: meetup._id.toString(), //MongoDb produce _id in different format that's why we need to map meetups
+      })),
     },
     revalidate: 10,
   };
