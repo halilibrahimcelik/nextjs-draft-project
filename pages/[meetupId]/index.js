@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { MongoClient, ObjectId } from "mongodb";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
+import Head from "next/head";
 const data = {
   id: "m1",
   title: "First Meetup",
@@ -13,6 +14,10 @@ const data = {
 const MeetupDetails = ({ meetupData }) => {
   return (
     <Fragment>
+      <Head>
+        <title>{meetupData.title} </title>
+        <meta name="description" content={meetupData.description} />
+      </Head>
       <MeetupDetail {...meetupData} />
     </Fragment>
   );
